@@ -1,0 +1,7 @@
+@Library("pilipa-library") _
+
+microServicePipeline(build: 'javaMicroServiceRelease', 
+    imageName: 'pilipa/tax/deepmind',
+    repoUrl: 'git@git.i-counting.cn:tax/deepmind.git',
+    credentialsId: 'jenkins at git.i-counting.cn', branch: 'dev',
+    serviceName: 'pilipa-tax-deepmind')
