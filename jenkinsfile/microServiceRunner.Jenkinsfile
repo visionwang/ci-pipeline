@@ -10,6 +10,8 @@ pipeline {
     parameters {
         choice(name: 'SERVICE', description: 'the service to be started', 
             choices: 'yuuyoo-demo\n\
+                      yuuyoo-config\n\
+                      yuuyoo-eureka\n\
                       pilipa-organization\
                       ')
 
@@ -46,6 +48,13 @@ pipeline {
                         case "yuuyoo-demo":
                             PARAMMAP["IMAGE_NAME"] = "yuuyoo/demo"
                             break
+                        case "yuuyoo-eureka":
+                            PARAMMAP["IMAGE_NAME"] = "yuuyoo/eureka"
+                            PARAMMAP["ENVIRONMENTS"] = "['NODE_ENV':'svt']"
+                            break    
+                        case "yuuyoo-config":
+                            PARAMMAP["IMAGE_NAME"] = "yuuyoo/config"
+                            break      
                         case "pilipa-configserver":
                             PARAMMAP["IMAGE_NAME"] = "pilipa/configserver"
                             withCredentials([usernamePassword(credentialsId: 'svt_rabbit_password', passwordVariable: 'RABBIT_PASSWORD', usernameVariable: 'RABBIT_PASSWORD_KEY')]) {
