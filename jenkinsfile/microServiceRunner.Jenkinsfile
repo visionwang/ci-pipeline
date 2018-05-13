@@ -10,10 +10,6 @@ pipeline {
     parameters {
         choice(name: 'SERVICE', description: 'the service to be started', 
             choices: 'yuuyoo-demo\n\
-                      pilipa-agent\n\
-                      pilipa-agent-helpcenter\n\
-                      pilipa-authentication-server\n\
-                      pilipa-configserver\n\
                       pilipa-organization\
                       ')
 
@@ -50,28 +46,12 @@ pipeline {
                         case "yuuyoo-demo":
                             PARAMMAP["IMAGE_NAME"] = "yuuyoo/demo"
                             break
-                        case "pilipa-agent":
-                            PARAMMAP["IMAGE_NAME"] = "pilipa/agent"
-                            PARAMMAP["PUBLISH"] = "['8180:8180']"
-                            break
                         case "pilipa-configserver":
                             PARAMMAP["IMAGE_NAME"] = "pilipa/configserver"
                             withCredentials([usernamePassword(credentialsId: 'svt_rabbit_password', passwordVariable: 'RABBIT_PASSWORD', usernameVariable: 'RABBIT_PASSWORD_KEY')]) {
                                 PARAMMAP["ENVIRONMENTS"] = "['JAVA_OPTIONS':'${DEFAULT_JAVA_OPTS} \
                                      -Djava.security.egd=file:/dev/./urandom -Dspring.rabbitmq.password=${RABBIT_PASSWORD}']" 
                             }
-                            break
-                        case "pilipa-svt-sms":
-                            PARAMMAP["IMAGE_NAME"] = "pilipa/svt/sms"
-                            PARAMMAP["PUBLISH"] = "['8092:80']"
-                            PARAMMAP["ENVIRONMENTS"] = "['ASPNETCORE_ENVIRONMENT':'Staging']"
-                            break
-                        case "pilipa-svt-accountnexus":
-                            PARAMMAP["IMAGE_NAME"]="pilipa/svt/accountnexus"
-                            PARAMMAP["PUBLISH"]="['8807:80']"
-                            PARAMMAP["ENVIRONMENTS"] = "['ASPNETCORE_ENVIRONMENT':'Staging']"
-                            PARAMMAP["REPLICAS"] = "2"
-                            PARAMMAP["MEMORY"] = "2048M"
                             break
                         case "pilipa-organization":
                             PARAMMAP["IMAGE_NAME"] = "pilipa/organization"
@@ -96,7 +76,7 @@ pipeline {
                         dockerServiceName = SERVICE_NAME
                         imageName = IMAGE_NAME
                         tagId = VERSION
-                        registry = "registry.i-counting.cn"
+                        registry = "registry.yuuyoo.com"
                         environment = ENVIRONMENTSUSED
                 	    replicas = REPLICAS
                 	    limitMemory = MEMORY
