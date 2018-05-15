@@ -50,7 +50,8 @@ pipeline {
                             break
                         case "yuuyoo-eureka":
                             PARAMMAP["IMAGE_NAME"] = "yuuyoo/eureka"
-                            PARAMMAP["ENVIRONMENTS"] = "['NODE_ENV':'svt']"
+                            PARAMMAP["ENVIRONMENTS"] = "['JAVA_OPTIONS':'-server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/yuuyoo/ \
+                        -Duser.timezone=Asia/Shanghai -Dspring.profiles.active=svt']"
                             break    
                         case "yuuyoo-config":
                             PARAMMAP["IMAGE_NAME"] = "yuuyoo/config"
