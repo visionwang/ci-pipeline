@@ -3,7 +3,7 @@
 pipeline {
     agent { label 'build-server' }
     options {
-        buildDiscarder(logRotator(numToKeepStr: '100', daysToKeepStr: '30'))
+        buildDiscarder(logRotator(numToKeepStr: '100', daysToKeepStr: '10'))
         timeout(time: 10, unit: 'MINUTES')
         timestamps()
     }
@@ -88,7 +88,7 @@ pipeline {
                         dockerServiceName = SERVICE_NAME
                         imageName = IMAGE_NAME
                         tagId = VERSION
-                        registry = "registry.yuuyoo.com"
+                        registry = "registry-vpc.cn-beijing.aliyuncs.com"
                         environment = ENVIRONMENTSUSED
                 	    replicas = REPLICAS
                 	    limitMemory = MEMORY
