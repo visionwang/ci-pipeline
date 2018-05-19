@@ -12,7 +12,7 @@ pipeline {
             choices: 'yuuyoo-demo\n\
                       yuuyoo-config\n\
                       yuuyoo-eureka\n\
-                      pilipa-organization\
+                      yuuyoo-validate\
                       ')
 
         choice(name: 'LOGDRIVER', description: 'the container log driver', 
@@ -50,25 +50,23 @@ pipeline {
                             break
                         case "yuuyoo-eureka":
                             PARAMMAP["IMAGE_NAME"] = "yuuyoo/eureka"
-                            PARAMMAP["ENVIRONMENTS"] = "['JAVA_OPTIONS':'-server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/yuuyoo/ \
-                        -Duser.timezone=Asia/Shanghai -Dspring.profiles.active=svt']"
+                            PARAMMAP["ENVIRONMENTS"] = "['JAVA_OPTIONS':'-server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/yuuyoo/ -Duser.timezone=Asia/Shanghai -Dspring.profiles.active=svt']"
                             break    
                         case "yuuyoo-config":
                             PARAMMAP["IMAGE_NAME"] = "yuuyoo/config"
-                            PARAMMAP["ENVIRONMENTS"] = "['JAVA_OPTIONS':'-server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/yuuyoo/ \
-                        -Duser.timezone=Asia/Shanghai -Dspring.profiles.active=svt']"
-                            break      
+                            PARAMMAP["ENVIRONMENTS"] = "['JAVA_OPTIONS':'-server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/yuuyoo/ -Duser.timezone=Asia/Shanghai -Dspring.profiles.active=svt']"
+                            break 
+                        case "yuuyoo-validate":
+                            PARAMMAP["IMAGE_NAME"] = "yuuyoo/validate"
+                            PARAMMAP["ENVIRONMENTS"] = "['JAVA_OPTIONS':'-server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/yuuyoo/ -Duser.timezone=Asia/Shanghai -Dspring.profiles.active=svt']"
+                            break     
                         case "pilipa-configserver":
                             PARAMMAP["IMAGE_NAME"] = "pilipa/configserver"
                             withCredentials([usernamePassword(credentialsId: 'svt_rabbit_password', passwordVariable: 'RABBIT_PASSWORD', usernameVariable: 'RABBIT_PASSWORD_KEY')]) {
                                 PARAMMAP["ENVIRONMENTS"] = "['JAVA_OPTIONS':'${DEFAULT_JAVA_OPTS} \
                                      -Djava.security.egd=file:/dev/./urandom -Dspring.rabbitmq.password=${RABBIT_PASSWORD}']" 
                             }
-                            break
-                        case "pilipa-organization":
-                            PARAMMAP["IMAGE_NAME"] = "pilipa/organization"
-                            PARAMMAP["ENVIRONMENTS"] = "['NODE_ENV':'svt']"
-                            break   
+                            break 
                         default:
                             throw new Exception("Service name '${params.SERVICE}' is unknown!")
                     }
