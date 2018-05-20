@@ -58,7 +58,6 @@ pipeline {
                             break 
                         case "yuuyoo-validate":
                             PARAMMAP["IMAGE_NAME"] = "yuuyoo/validate"
-                            PARAMMAP["ENVIRONMENTS"] = "['JAVA_OPTIONS':'-server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/yuuyoo/ -Duser.timezone=Asia/Shanghai -Dspring.profiles.active=svt']"
                             break     
                         case "pilipa-configserver":
                             PARAMMAP["IMAGE_NAME"] = "pilipa/configserver"
