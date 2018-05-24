@@ -12,6 +12,7 @@ pipeline {
             choices: 'yuuyoo-demo\n\
                       yuuyoo-config\n\
                       yuuyoo-eureka\n\
+                      yuuyoo-gateway\n\
                       yuuyoo-validate\
                       ')
 
@@ -55,6 +56,9 @@ pipeline {
                         case "yuuyoo-config":
                             PARAMMAP["IMAGE_NAME"] = "yuuyoo/config"
                             PARAMMAP["ENVIRONMENTS"] = "['JAVA_OPTIONS':'-server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/yuuyoo/ -Duser.timezone=Asia/Shanghai -Dspring.profiles.active=svt']"
+                            break 
+                        case "yuuyoo-gateway":
+                            PARAMMAP["IMAGE_NAME"] = "yuuyoo/gateway"
                             break 
                         case "yuuyoo-validate":
                             PARAMMAP["IMAGE_NAME"] = "yuuyoo/validate"
