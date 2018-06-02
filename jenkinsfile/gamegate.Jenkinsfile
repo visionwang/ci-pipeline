@@ -1,4 +1,4 @@
-@Library("pilipa-library") _
+@Library("pipeline-library") _
 
 def buildEnv = "['FILTER_CLIENT_ID':'AS6vl1WwLGnTY0id']"
 microServicePipeline(build: 'nodeMicroServiceRelease', 
