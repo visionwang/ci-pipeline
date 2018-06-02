@@ -13,6 +13,7 @@ pipeline {
                       yuuyoo-config\n\
                       yuuyoo-eureka\n\
                       yuuyoo-gateway\n\
+                      yuuyoo-gamegate\n\
                       yuuyoo-validate\
                       ')
 
@@ -70,6 +71,11 @@ pipeline {
                                      -Djava.security.egd=file:/dev/./urandom -Dspring.rabbitmq.password=${RABBIT_PASSWORD}']" 
                             }
                             break 
+                        case "yuuyoo-gamegate":
+                            PARAMMAP["IMAGE_NAME"] = "yuuyoo/gamegate"
+                            PARAMMAP["REPLICAS"] = "1"
+                            break
+
                         default:
                             throw new Exception("Service name '${params.SERVICE}' is unknown!")
                     }
