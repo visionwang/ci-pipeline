@@ -6,6 +6,6 @@ microServicePipeline(build: 'nodeMicroServiceRelease',
     repoUrl: 'git@github.com:xiaoyingxi/node-gateway.git',
     credentialsId: '9daced0c-e897-4c39-86d7-c6834e490ab4', 
     branch: 'master',
-    runner: 'MicroserviceCI/MicroserviceRunner',
+    runner: 'microServiceRunner',
     buildEnvironments: buildEnv,
     serviceName: 'yuuyoo-gamegate')
